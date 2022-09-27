@@ -16,7 +16,7 @@ public class PlayerController : MonoBehaviour {
     [Header("DashTimes")]
     public float dashTime = 0.5f;
     public float dashCooldown = 3f;
-
+    
     [Header("Smoothing/Gravity")]
     public float gravityScale = 2f;
     public float moveSmoothTime = 0.3f;
