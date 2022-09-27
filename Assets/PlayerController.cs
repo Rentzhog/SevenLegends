@@ -6,25 +6,25 @@ public class PlayerController : MonoBehaviour {
 
     [Header("Movement")]
     public float maxSpeed = 15f;
-    public float accelleration = 10000f;
-    public float jumpForce = 15f;
+    public float accelleration = 100f;
+    public float jumpForce = 20f;
     public int maxJumps = 2;
     public int currentJumpsLeft;
 
     [Header("Dash")]
-    public float dashForce = 30f;
+    public float dashForce = 33f;
     public float dashTime = .1f;
     public float dashCooldown = .5f;
 
     [Header("Wall")]
-    public float wallSlidingSpeed = -80f;
+    public float wallSlidingSpeed = -120f;
 
     [Header("Gravity")]
     public float drag = 5f;
-    public float stopDrag = 15f;
+    public float stopDrag = 10f;
     public float gravityScale = 3f;
     public float fallMultiplier = 3f;
-    public float lowJumpMultiplier = 2.5f;
+    public float lowJumpMultiplier = 6f;
     public float fallMultiplierBuffer = 5f;
     public float fastFallingMultiplier = 2.5f;
 
