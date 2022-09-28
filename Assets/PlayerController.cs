@@ -35,6 +35,7 @@ public class PlayerController : MonoBehaviour {
     Rigidbody2D rb;
     CapsuleCollider2D playerCollider;
     TrailRenderer tr;
+    Animator animator;
 
     float groundedRaycastLength = .15f;
     float wallRaycastLength = .04f;
@@ -58,11 +59,25 @@ public class PlayerController : MonoBehaviour {
         rb = GetComponent<Rigidbody2D>();
         playerCollider = GetComponent<CapsuleCollider2D>();
         tr = GetComponent<TrailRenderer>();
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
     void Update() {
         rawInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+
+        if(rawInput.x < 0) {
+            transform.localScale = new Vector3(-1f, 1, 1);
+        }else if(rawInput.x > 0) {
+            transform.localScale = new Vector3(1f, 1, 1);
+        }
+
+        if(rb.velocity.magnitude < 0.6f) {
+            animator.SetBool("isRunning", false);
+        }
+        else {
+            animator.SetBool("isRunning", true);
+        }
 
         if (Input.GetButtonDown("Jump") && currentJumpsLeft > 0) {
             Jump();
@@ -262,12 +277,12 @@ public class PlayerController : MonoBehaviour {
         if (onLeftWall) {
             wallJumping = true;
             onLeftWall = false;
-            transform.position += new Vector3(wallRaycastLength, 0, 0);
+            transform.position += new Vector3(wallRaycastLength * 3f, 0, 0);
         }
         else if (onRightWall) {
             wallJumping = true;
             onRightWall = false;
-            transform.position -= new Vector3(wallRaycastLength, 0, 0);
+            transform.position -= new Vector3(wallRaycastLength * 3f, 0, 0);
         }
 
         rb.velocity = new Vector2(xVelocity, jumpForce);
@@ -299,7 +314,7 @@ public class PlayerController : MonoBehaviour {
         isDashing = false;
         rb.gravityScale = gravScale;
         if (dashedUp) {
-            rb.velocity = new Vector2(rb.velocity.x, 10);
+            rb.velocity = new Vector2(rb.velocity.x, 16);
         }
 
         yield return new WaitForSeconds(dashCooldown);
